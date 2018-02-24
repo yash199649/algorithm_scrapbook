@@ -1,41 +1,5 @@
-<<<<<<< HEAD
-#include<iostream>
-using namespace std;
-
-// recursive approach
-int change(int S[],int m,int n){
-	if(n==0)
-		return 1;
-	if(n<0)
-		return 0;
-	if(m<=0 && n>=1)
-		return 0;
-
-	return change(S,m-1,n) + change(S,m,n-S[m-1]); 
-}
-
-// dp approach
-
-int changeDp(int S[],int m,int n){
-	int table[n+1];
-    memset(table, 0, sizeof(table));
-    table[0] = 1;
-    for(int i=0; i<m; i++)
-        for(int j=S[i]; j<=n; j++)
-            table[j] += table[j-S[i]];
-    return table[n];
-}
-
-
-int main(int argc, char const *argv[])
-{
-	int i, j;
-    int arr[] = {1, 2, 3};
-    int m = sizeof(arr)/sizeof(arr[0]);
-    printf("%d ", changeDp(arr, m, 4));
-=======
-/*  Given a value n if we want to make change for n cents and we have infinite supply of
- S={S1,S2,S3....} valued coins, how many ways can we make the change   */
+/*  Given a cost matrix cost[][] and a position (m,n) in 
+cost matrix find out the path with minimum cost to the traverse from (0,0) to (m,n)   */
 
 #include<bits/stdc++.h>
 using namespace std;
@@ -84,13 +48,46 @@ int min(int a,int b,int c){
     return c;
 }
 
-int trials(int *S,int n,int k){
-  
+int minPath(int cost[R][C],int i,int j){
+  cout<<i<<" "<<j<<endl;
+  if(i==0 && j==0)
+    return cost[0][0];
+  else if(i<0 || j<0)
+    return INT_MAX;
+  else
+    return cost[i][j]+min(minPath(cost,i-1,j),minPath(cost,i,j-1),minPath(cost,i-1,j-1));
   
 }
 
-int trialsDp(int cost[R][C],int m,int n){
-  
+int minPathDp(int cost[R][C],int m,int n){
+  int dp[R][C],i,j;
+  rep(i,R){
+    rep(j,C){
+      dp[i][j]=0;
+    }
+  }
+  rep(i,R){
+    rep(j,C){
+      if(i==0)
+        dp[i][j]=cost[i][j]+dp[i][j-1];
+      else if(j==0)
+        dp[i][j]=cost[i][j]+dp[i-1][j];
+    else{
+      dp[i][j]=cost[i][j]+min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1]);
+    }
+  }
+    }
+
+    rep(i,R){
+    rep(j,C){
+      cout<<dp[i][j]<<" ";
+    }
+    cout<<endl;
+  }
+
+
+    return dp[m][n];
+
 }
 
 
@@ -100,6 +97,5 @@ int main(int argc, char const *argv[])
 	 int arr[3][3]={{1,2,3},{4,8,2},{1,5,3}};
    cout<<minPathDp(arr,2,2);
 
->>>>>>> 8cec25fe304c60ad8ec6ca819fd0d4331879250c
 	return 0;
 }
