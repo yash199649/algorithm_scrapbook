@@ -1,6 +1,6 @@
 /*  Function that takes values of n and k and returns binomial coefficient C(n,k). */
 
-#include<bits/stdc++.h>
+#include<iostream>
 using namespace std;
 
 // Recursive approach
@@ -36,7 +36,7 @@ int calBinomialSe(int n,int k){
 	{
 		for (int j = min(i,k); j>0; --j)
 		{
-			C[j]=C[j]+C[j-1]
+			C[j]=C[j]+C[j-1];
 		}
 	}
 	return C[k];

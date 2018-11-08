@@ -1,7 +1,18 @@
 /* Function to find minimum length common subsequence in two given strings. */
-#include<bits/stdc++.h>
+#include<iostream>
 using namespace std;
 
+//Recursive Solution
+int lcsRecur(char* str1, char* str2, int m,int n){
+	if(m==0||n==0)
+		return 0;
+	if(str1[m]==str2[n])
+		return lcsRecur(str1,str2,m-1,n-1)+1;
+	else
+		return max(lcsRecur(str1,str2,m-1,n),lcsRecur(str1,str2,m,n-1));
+}
+
+// Dp solution
 int lcsFunc(char* str1,char* str2,int m,int n){
 	
 	int lcs[m+1][n+1];
@@ -25,7 +36,7 @@ int main(int argc, char const *argv[])
 {
 	char x[] = "yash";
 	char y[] = 	"ashwani";
-	cout<<"Longest common subsequence length is:"<<lcsFunc(x,y,4,7);
+	cout<<"Longest common subsequence length is:"<<lcsRecur(x,y,4,7)<<endl;
 	return 0;
 }
 
