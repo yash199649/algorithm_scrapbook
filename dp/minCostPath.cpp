@@ -23,6 +23,8 @@ using namespace std;
 #define sl(n) scanf("%lld",&n)
 #define sd(n) scanf("%d",&n)
 #define pn printf("\n")
+#define INT_MAX 2147483647
+#define INT_MIN -2147483647
 const int N = 2050;
 const int M = 123;
 const ld Pi = acos(-1);
